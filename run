@@ -1,4 +1,4 @@
 #! /bin/sh
 
-gcc --std=c99 -o main $@ && ./main
+gcc -lm --std=c99 -o main $@ && ./main
 rm main
