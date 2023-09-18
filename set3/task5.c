@@ -17,5 +17,6 @@ int main() {
         for (unsigned long long i = p * p; i <= n; i += p)
             isComposite[i] = 1;
     }
+    free(isComposite);
     return 0;
 }
