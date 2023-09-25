@@ -39,7 +39,7 @@ int findInArr(int arr[], size_t size, int x) {
     return -1;
 }
 
-void extractDigit(int arr[], size_t size, int n) {
+void extractDigit(int arr[], size_t size, unsigned int n) {
     assert(size >= 10);
     int i = 0;
     for(; n != 0; i++) {
@@ -78,9 +78,9 @@ int main() {
     for (size_t i = 0; i < 10; i++)
         d_arr[i] = 0;
 
-    int n;
+    unsigned int n;
     printf("Type number: ");
-    scanf("%d", &n);
+    scanf("%u", &n);
     extractDigit(d_arr, 10, n);
     printf("Your number as array of digits: \n");
     printArr(d_arr, 10);
