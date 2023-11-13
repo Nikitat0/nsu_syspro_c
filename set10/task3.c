@@ -23,7 +23,8 @@ const char** split(const char *str, size_t *size, size_t *capacity) {
         while (*j != ' ' && *j != 0)
             j++;
 
-        char *element = malloc((j - i) * sizeof(char));
+        char *element = malloc((j - i + 1) * sizeof(char));
+        nullCheck(element);
         char *k = element;
         for (; i < j; i++) {
             *k = *i;
@@ -31,9 +32,8 @@ const char** split(const char *str, size_t *size, size_t *capacity) {
         }
         *k = 0;
 
-        nullCheck(element);
         if (*size == *capacity) {
-            splitted = realloc(splitted, *capacity *= 2 * sizeof(char));
+            splitted = realloc(splitted, (*capacity *= 2) * sizeof(const char*));
             nullCheck(splitted);
         }
         splitted[*size] = element;
