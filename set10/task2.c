@@ -21,16 +21,14 @@ const char* trim(const char *str) {
 
     char* dst = malloc((end - begin + 2) * sizeof(char));
     char *i = dst;
-    for(; begin <= end; begin++) {
-        *i = *begin;
-        i++;
-    }
-    begin = 0;
+    for (; begin <= end; begin++)
+        *(i++) = *begin;
+    *i = 0;
     return dst;
 }
 
 int main() {
-    const char *str = " to be trimmed  ";
+    const char *str = " ";
     printf("%s\n", trim(str));
     return 0;
 }
