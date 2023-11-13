@@ -12,16 +12,16 @@ void nullCheck(void *ptr) {
     }
 }
 
-void exitOrJump(int errorCode, jmp_buf *buf) {
+void exitOrJump(int errorCode, jmp_buf buf) {
     if (buf != NULL)
-        longjmp(*buf, errorCode);
+        longjmp(buf, errorCode);
     exit(errorCode);
 }
 
 // Error codes:
 // 1: Overflow
 // 2: Invalid symbol
-int s2i(const char *src, unsigned int base, jmp_buf *buf) {
+int s2i(const char *src, unsigned int base, jmp_buf buf) {
     assert(base <= 16);
 
     int sign = 1;
@@ -55,19 +55,19 @@ int s2i(const char *src, unsigned int base, jmp_buf *buf) {
 int main() {
     jmp_buf buf;
     setjmp(buf);
-    printf("-1A (base 10) = %d\n", s2i("-1A", 11, &buf));
-    printf("33 (base 4) = %d\n", s2i("33", 4, &buf));
+    printf("-1A (base 10) = %d\n", s2i("-1A", 11, buf));
+    printf("33 (base 4) = %d\n", s2i("33", 4, buf));
 
     int errorCode = setjmp(buf);
     if (errorCode == 0)
-        s2i("4294967297", 10, &buf);
+        s2i("4294967297", 10, buf);
     else if (errorCode == 1) {
         printf("Overflow error\n");
     }
 
     errorCode = setjmp(buf);
     if (errorCode == 0)
-        s2i("_cringe_", 10, &buf);
+        s2i("_cringe_", 10, buf);
     else if (errorCode == 2) {
         printf("Invalid symbol error\n");
     }
